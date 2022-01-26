@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 199943504}
   - component: {fileID: 199943508}
   m_Layer: 0
-  m_Name: ProbingCube
+  m_Name: ProbingSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2824,7 +2824,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Move probing cube
+  m_text: Move probing sphere
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3141,7 +3141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 402, y: -523}
+  m_AnchoredPosition: {x: 402, y: -480}
   m_SizeDelta: {x: 569, y: 328.531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043655318
@@ -3164,7 +3164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Increase probing cube size
+  m_text: Increase/decrease probing sphere size
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3191,7 +3191,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 68.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5262,6 +5262,7 @@ GameObject:
   - component: {fileID: 1664994192}
   - component: {fileID: 1664994196}
   - component: {fileID: 1664994195}
+  - component: {fileID: 1664994201}
   - component: {fileID: 1664994194}
   - component: {fileID: 1664994193}
   - component: {fileID: 1664994197}
@@ -5269,7 +5270,7 @@ GameObject:
   - component: {fileID: 1664994199}
   - component: {fileID: 1664994200}
   m_Layer: 0
-  m_Name: OuterProbingCube
+  m_Name: OuterProbingSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5314,7 +5315,7 @@ BoxCollider:
   m_GameObject: {fileID: 1664994191}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -5367,7 +5368,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664994191}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &1664994197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5430,6 +5431,19 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!135 &1664994201
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664994191}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1668754515
 PrefabInstance:
   m_ObjectHideFlags: 0
