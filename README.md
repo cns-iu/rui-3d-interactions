@@ -1,1 +1,2 @@
-# rui-3d-interactions
+# EUI Probing Cube (Prototype)
+Welcome! Please follow the instructions on the screen. You can submit issues here: [https://github.com/andreasbueckle/rui-3d-interactions/issues](https://github.com/andreasbueckle/rui-3d-interactions/issues)
