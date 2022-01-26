@@ -28,19 +28,19 @@ public class MoveProbingCube : MonoBehaviour
                 t.Translate(0, m_MovementUnit, 0, m_ReferenceSpace);
                 break;
             case KeyCode.A:
-                t.Translate(-m_MovementUnit, 0f, 0, m_ReferenceSpace);
+                t.Translate(m_MovementUnit, 0f, 0, m_ReferenceSpace);
                 break;
             case KeyCode.S:
                 t.Translate(0, -m_MovementUnit, 0, m_ReferenceSpace);
                 break;
             case KeyCode.D:
-                t.Translate(m_MovementUnit, 0f, 0, m_ReferenceSpace);
+                t.Translate(-m_MovementUnit, 0f, 0, m_ReferenceSpace);
                 break;
             case KeyCode.Q:
-                t.Translate(0, 0f, m_MovementUnit, m_ReferenceSpace);
+                t.Translate(0, 0f, -m_MovementUnit, m_ReferenceSpace);
                 break;
             case KeyCode.E:
-                t.Translate(0, 0f, -m_MovementUnit, m_ReferenceSpace);
+                t.Translate(0, 0f, m_MovementUnit, m_ReferenceSpace);
                 break;
             default:
                 break;
