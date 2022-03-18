@@ -25,7 +25,7 @@ public class Highlight : MonoBehaviour
     {
         MovementManager.MovementEvent -= SetPanelActive;
         UserInputHandler.KeyPressedEvent -= SetPanelActive;
-        UserInputHandler.KeyHeldEvent += SetPanelActive;
+        UserInputHandler.KeyHeldEvent -= SetPanelActive;
     }
 
     private void Awake()
