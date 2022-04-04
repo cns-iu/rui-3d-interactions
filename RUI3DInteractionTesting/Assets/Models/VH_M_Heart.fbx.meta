@@ -3,7 +3,22 @@ guid: 98cb45f8e137d28458db0ac04277866e
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: artery_mat6
+    second: {fileID: 2100000, guid: 424a05b2f6eb017408a8e4f5b08c7019, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: heart_mat
+    second: {fileID: 2100000, guid: 10f8a04c65e80f04781120ab1dee59b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vein_mat9
+    second: {fileID: 2100000, guid: ea3c5426d72c06d469ce37b68f491d4e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
