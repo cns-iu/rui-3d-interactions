@@ -16,9 +16,6 @@ public class Highlight : MonoBehaviour
         UserInputHandler.KeyPressedEvent += SetPanelActive;
 
         UserInputHandler.KeyHeldEvent += SetPanelActive;
-
-
-
     }
 
     void OnDisable()

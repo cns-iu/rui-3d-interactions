@@ -9,6 +9,9 @@ public class MoveProbingCube : MonoBehaviour
     [SerializeField] private float m_MovementUnitModified;
     [SerializeField] private Space m_ReferenceSpace;
 
+    public delegate void CubeMove(KeyCode key);
+    public static event CubeMove CubeMoveEvent;
+
     void OnEnable()
     {
         UserInputHandler.KeyHeldEvent += SetMovementUnit;
@@ -38,6 +41,8 @@ public class MoveProbingCube : MonoBehaviour
                 MoveBlock(e.keyCode, true);
             }
             MoveBlock(e.keyCode, false);
+            CubeMoveEvent?.Invoke(e.keyCode);
+
         }
     }
 
