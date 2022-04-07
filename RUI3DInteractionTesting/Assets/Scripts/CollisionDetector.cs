@@ -6,46 +6,37 @@ public class CollisionDetector : MonoBehaviour
 {
     public delegate void CollisionData(TissueBlockData data, bool isCollided);
     public static event CollisionData CollisionDataEvent;
-    [SerializeField] List<Material> m_TissueBlockMaterials = new List<Material>();
+    private int m_NumSelectedBlocks = 0;
+    [SerializeField] private List<Material> m_TissueBlockMaterials = new List<Material>();
+    [SerializeField]
+    private List<Color> m_Colors = new List<Color>() {
+        new Color(255f,255f,255f),
+        new Color(22f,95f,159f),
+    };
+    private Color m_StartColor;
+
+    void Start()
+    {
+        
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<Renderer>().material = m_TissueBlockMaterials[1];
+        m_StartColor = other.GetComponent<Renderer>().material.color;
+        other.gameObject.GetComponent<Outline>().OutlineColor = m_Colors[1];
+        other.GetComponent<Renderer>().material.color = m_Colors[1];
         CollisionDataEvent?.Invoke(other.GetComponent<TissueBlockData>(), true);
         SetOutline(other, true);
     }
 
-    void OnTriggerStay(Collider other)
-    {
-        if (FullyContains(other))
-        {
-            other.GetComponent<Renderer>().material = m_TissueBlockMaterials[2];
-            other.gameObject.GetComponent<Outline>().OutlineColor = Color.green;
-        }
-        else
-        {
-            other.GetComponent<Renderer>().material = m_TissueBlockMaterials[1];
-            other.gameObject.GetComponent<Outline>().OutlineColor = Color.yellow;
-        }
-
-    }
-
     void OnTriggerExit(Collider other)
     {
-        other.GetComponent<Renderer>().material = m_TissueBlockMaterials[0];
-        other.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
+        other.gameObject.GetComponent<Outline>().OutlineColor = m_Colors[0];
+        other.GetComponent<Renderer>().material.color = m_StartColor;
         CollisionDataEvent?.Invoke(other.GetComponent<TissueBlockData>(), false);
         SetOutline(other, false);
     }
 
-    bool FullyContains(Collider resident)
-    {
-        Collider zone = GetComponent<Collider>();
-        if (zone == null)
-        {
-            return false;
-        }
-        return zone.bounds.Contains(resident.bounds.max) && zone.bounds.Contains(resident.bounds.min);
-    }
 
     void SetOutline(Collider other, bool isOn)
     {

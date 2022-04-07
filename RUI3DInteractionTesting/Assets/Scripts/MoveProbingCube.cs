@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveProbingCube : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class MoveProbingCube : MonoBehaviour
     [SerializeField] private float m_MovementUnitNormal;
     [SerializeField] private float m_MovementUnitModified;
     [SerializeField] private Space m_ReferenceSpace;
+    [SerializeField] private Button m_ResetButton;
+
+    public delegate void CubeMove(KeyCode key);
+    public static event CubeMove CubeMoveEvent;
 
     void OnEnable()
     {
@@ -22,6 +27,15 @@ public class MoveProbingCube : MonoBehaviour
     void Start()
     {
         m_MovementUnitActive = m_MovementUnitNormal;
+
+        m_ResetButton.onClick.AddListener(
+            delegate
+            {
+                CubeMoveEvent?.Invoke(KeyCode.L);
+            }
+        );
+
+
     }
 
     void OnGUI()
@@ -38,6 +52,8 @@ public class MoveProbingCube : MonoBehaviour
                 MoveBlock(e.keyCode, true);
             }
             MoveBlock(e.keyCode, false);
+            CubeMoveEvent?.Invoke(e.keyCode);
+
         }
     }
 

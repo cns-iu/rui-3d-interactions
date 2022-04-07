@@ -12,10 +12,15 @@ public class UserInputHandler : MonoBehaviour
 
     public delegate void KeyHeld(string key, bool isHeld);
     public static event KeyHeld KeyHeldEvent;
+
+    public delegate void MouseHeld(bool isHeld);
+    public static event MouseHeld MouseHeldEvent;
+
     void OnGUI()
     {
         GetMouseScrollWheel();
         GetKeyPress();
+        GetMouseButtonHold();
     }
 
     void GetKeyPress()
@@ -52,6 +57,12 @@ public class UserInputHandler : MonoBehaviour
 
     }
 
+    void GetMouseButtonHold()
+    {
+        MouseHeldEvent?.Invoke(Input.GetMouseButton(0));
+    }
+
+
     Event GetCurrentEvent()
     {
         Event e = Event.current;
@@ -59,3 +70,5 @@ public class UserInputHandler : MonoBehaviour
     }
 
 }
+
+

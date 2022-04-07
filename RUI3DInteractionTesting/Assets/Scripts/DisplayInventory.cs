@@ -20,20 +20,20 @@ public class DisplayInventory : MonoBehaviour
     }
     void SetText(List<AnatomicalStructures> uniqueAS, List<CellTypes> uniqueCT)
     {
-        m_Text[0].text = "<mark=#E41A1Caa>You are colliding with these anatomical structures: \n";
-        m_Text[1].text = "<mark=#377EB8aa>You are colliding with these cell types: \n";
+        m_Text[0].text = "You are colliding with these anatomical structures:\n";
+        m_Text[1].text = "You are colliding with these cell types:\n";
 
         uniqueASHash = ConvertListToHashSet<AnatomicalStructures>(uniqueAS);
         uniqueCTHash = ConvertListToHashSet<CellTypes>(uniqueCT);
 
         foreach (var item in uniqueASHash)
         {
-            m_Text[0].text += item + "\n";
+            m_Text[0].text += " - " + item + "\n";
         }
 
         foreach (var item in uniqueCTHash)
         {
-            m_Text[1].text += item + "\n";
+            m_Text[1].text += " - " + item + "\n";
         }
         m_Text[1].text += "</mark>";
 
@@ -63,7 +63,7 @@ public class DisplayInventory : MonoBehaviour
 
     private void ShowStandardText()
     {
-        m_Text[0].text = "<mark=#E41A1Caa>You are colliding with these anatomical structures: \n";
-        m_Text[1].text = "<mark=#377EB8aa>You are colliding with these cell types: \n";
+        m_Text[0].text = "You are colliding with these anatomical structures:\n";
+        m_Text[1].text = "You are colliding with these cell types:\n";
     }
 }

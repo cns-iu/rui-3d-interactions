@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class SimpleOrbitCamera : MonoBehaviour
 {
     [SerializeField]
@@ -15,6 +17,19 @@ public class SimpleOrbitCamera : MonoBehaviour
     [SerializeField]
     float smoothFactor;
     public bool m_DoesPointerAllow = true;
+    [SerializeField] bool m_CanBeUsed = true;
+
+    void OnEnable()
+    {
+        SliderPointerHandler.SliderEnterEvent += SetCameraUsage;
+    }
+
+    void OnDestroy()
+    {
+        SliderPointerHandler.SliderEnterEvent -= SetCameraUsage;
+    }
+
+
 
     void Start()
     {
@@ -30,7 +45,8 @@ public class SimpleOrbitCamera : MonoBehaviour
     }
     void LateUpdate()
     {
-
+        if (!m_CanBeUsed) return;
+        
         if (Input.GetMouseButton(0))
         {
             Quaternion camTurnAngleX = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
@@ -58,11 +74,17 @@ public class SimpleOrbitCamera : MonoBehaviour
         }
         if (Input.mouseScrollDelta != new Vector2(0f, 0f) && !Input.GetKey(KeyCode.LeftShift))
         {
-            transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
-            m_Target.transform.rotation = transform.rotation;
-            m_Target.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
+            GetComponent<Camera>().fieldOfView -= Input.mouseScrollDelta.y;
+            // transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
+            // m_Target.transform.rotation = transform.rotation;
+            // m_Target.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
         }
         this.transform.LookAt(m_Target.transform);
 
+    }
+
+    void SetCameraUsage(bool turnCameraOff)
+    {
+        m_CanBeUsed = !turnCameraOff;
     }
 }
