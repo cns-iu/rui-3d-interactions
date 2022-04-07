@@ -74,9 +74,10 @@ public class SimpleOrbitCamera : MonoBehaviour
         }
         if (Input.mouseScrollDelta != new Vector2(0f, 0f) && !Input.GetKey(KeyCode.LeftShift))
         {
-            transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
-            m_Target.transform.rotation = transform.rotation;
-            m_Target.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
+            GetComponent<Camera>().fieldOfView -= Input.mouseScrollDelta.y;
+            // transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
+            // m_Target.transform.rotation = transform.rotation;
+            // m_Target.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
         }
         this.transform.LookAt(m_Target.transform);
 

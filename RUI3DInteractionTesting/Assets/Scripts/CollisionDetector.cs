@@ -10,39 +10,29 @@ public class CollisionDetector : MonoBehaviour
     [SerializeField] private List<Material> m_TissueBlockMaterials = new List<Material>();
     [SerializeField]
     private List<Color> m_Colors = new List<Color>() {
-        new Color(255f,136f,0f),
-        new Color(0,229,255),
-        new Color(224,64,251),
-        new Color(130,177,255),
-        new Color(172,243,43),
-        new Color(115,35,226)
+        new Color(255f,255f,255f),
+        new Color(22f,95f,159f),
     };
+    private Color m_StartColor;
 
+    void Start()
+    {
+        
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        m_NumSelectedBlocks++;
-        int colorIndex;
-        if (m_NumSelectedBlocks >= m_Colors.Count)
-        {
-            colorIndex = m_NumSelectedBlocks - m_Colors.Count;
-        }
-        else
-        {
-            colorIndex = m_NumSelectedBlocks - 1;
-        }
-
-        other.GetComponent<Renderer>().material.color = m_Colors[colorIndex];
-        other.gameObject.GetComponent<Outline>().OutlineColor = m_Colors[colorIndex];
+        m_StartColor = other.GetComponent<Renderer>().material.color;
+        other.gameObject.GetComponent<Outline>().OutlineColor = m_Colors[1];
+        other.GetComponent<Renderer>().material.color = m_Colors[1];
         CollisionDataEvent?.Invoke(other.GetComponent<TissueBlockData>(), true);
         SetOutline(other, true);
     }
 
     void OnTriggerExit(Collider other)
     {
-        m_NumSelectedBlocks--;
-        other.GetComponent<Renderer>().material = m_TissueBlockMaterials[0];
-        other.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
+        other.gameObject.GetComponent<Outline>().OutlineColor = m_Colors[0];
+        other.GetComponent<Renderer>().material.color = m_StartColor;
         CollisionDataEvent?.Invoke(other.GetComponent<TissueBlockData>(), false);
         SetOutline(other, false);
     }
