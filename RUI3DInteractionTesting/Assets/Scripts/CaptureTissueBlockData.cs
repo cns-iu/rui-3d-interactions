@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CaptureTissueBlockData : MonoBehaviour
 {
-    public delegate void Inventory(List<AnatomicalStructures> uniqueAS, List<CellTypes> uniqueCT);
+    public delegate void Inventory(List<AnatomicalStructures> uniqueAS, List<CellTypes> uniqueCT, int number);
     public static event Inventory UpdateInventoryEvent;
     private List<AnatomicalStructures> m_UniqueAS = new List<AnatomicalStructures>();
     private List<CellTypes> m_UniqueCT = new List<CellTypes>();
+    [SerializeField] private int m_NumberTissueBlocks;
 
 
     void OnEnable()
@@ -19,14 +20,19 @@ public class CaptureTissueBlockData : MonoBehaviour
     {
         CollisionDetector.CollisionDataEvent -= GetTissueBlockData;
     }
-    // Start is called before the first frame update
     void GetTissueBlockData(TissueBlockData data, bool isCollided)
     {
         // Debug.Log(data.m_ListAS[0]);
         UpdateAS(data.m_ListAS, isCollided);
         UpdateCT(data.m_ListCT, isCollided);
+        UpdateNumberTissueBlock(isCollided);
+        Debug.Log(m_NumberTissueBlocks);
+        UpdateInventoryEvent?.Invoke(m_UniqueAS, m_UniqueCT, m_NumberTissueBlocks);
+    }
 
-        UpdateInventoryEvent?.Invoke(m_UniqueAS, m_UniqueCT);
+    void UpdateNumberTissueBlock(bool isCollided)
+    {
+        m_NumberTissueBlocks = isCollided ? m_NumberTissueBlocks + 1 : m_NumberTissueBlocks - 1;
     }
 
     void UpdateAS(List<AnatomicalStructures> list, bool isCollided)
@@ -66,6 +72,4 @@ public class CaptureTissueBlockData : MonoBehaviour
             }
         }
     }
-
-
 }

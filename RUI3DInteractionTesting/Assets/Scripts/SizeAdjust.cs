@@ -27,13 +27,13 @@ public class SizeAdjust : MonoBehaviour
 
     void OnEnable()
     {
-        UserInputHandler.MouseScrollEvent += AdjustSize;
+        // UserInputHandler.MouseScrollEvent += AdjustSize;
         MoveProbingCube.CubeMoveEvent += ResetSize;
     }
 
     void OnDestroy()
     {
-        UserInputHandler.MouseScrollEvent -= AdjustSize;
+        // UserInputHandler.MouseScrollEvent -= AdjustSize;
         MoveProbingCube.CubeMoveEvent -= ResetSize;
     }
 
@@ -47,7 +47,10 @@ public class SizeAdjust : MonoBehaviour
           delegate
           {
               ResetPosition();
+              m_IsSliderBeingSetNow = true;
               ResetEvent?.Invoke();
+              ResetSlider();
+              m_IsSliderBeingSetNow = false;
           });
     }
 
@@ -104,5 +107,10 @@ public class SizeAdjust : MonoBehaviour
         m_IsSliderBeingSetNow = true;
         m_OpacitySlider.value = Mathf.Lerp(0, 1, transform.localScale.x);
         m_IsSliderBeingSetNow = false;
+    }
+
+    void ResetSlider()
+    {
+        m_OpacitySlider.value = m_OpacitySlider.minValue;
     }
 }

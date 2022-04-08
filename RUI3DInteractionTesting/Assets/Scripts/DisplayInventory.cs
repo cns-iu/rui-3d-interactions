@@ -9,6 +9,7 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] List<TMP_Text> m_Text = new List<TMP_Text>();
     [SerializeField] HashSet<AnatomicalStructures> uniqueASHash = new HashSet<AnatomicalStructures>();
     [SerializeField] HashSet<CellTypes> uniqueCTHash = new HashSet<CellTypes>();
+
     void OnEnable()
     {
         CaptureTissueBlockData.UpdateInventoryEvent += SetText;
@@ -18,7 +19,7 @@ public class DisplayInventory : MonoBehaviour
     {
         CaptureTissueBlockData.UpdateInventoryEvent -= SetText;
     }
-    void SetText(List<AnatomicalStructures> uniqueAS, List<CellTypes> uniqueCT)
+    void SetText(List<AnatomicalStructures> uniqueAS, List<CellTypes> uniqueCT, int number)
     {
         m_Text[0].text = "You are colliding with these anatomical structures:\n";
         m_Text[1].text = "You are colliding with these cell types:\n";
@@ -35,7 +36,9 @@ public class DisplayInventory : MonoBehaviour
         {
             m_Text[1].text += " - " + item + "\n";
         }
-        m_Text[1].text += "</mark>";
+        // m_Text[1].text += "</mark>";
+
+        SetCounts(uniqueASHash, uniqueCTHash, number);
 
         foreach (var item in m_Text)
         {
@@ -44,6 +47,12 @@ public class DisplayInventory : MonoBehaviour
                 ShowStandardText();
             }
         }
+
+    }
+
+    void SetCounts(HashSet<AnatomicalStructures> uniqueASHash, HashSet<CellTypes> uniqueCTHash, int number)
+    {
+        m_Text[2].text = "Tissue Block Collisions: " + number + " \nAnatomical Structure Collisions: " + uniqueASHash.Count + "\nCell Type Predictions via ASCT + B Tables: " + uniqueCTHash.Count;
     }
 
     HashSet<T> ConvertListToHashSet<T>(List<T> list)
@@ -65,5 +74,6 @@ public class DisplayInventory : MonoBehaviour
     {
         m_Text[0].text = "You are colliding with these anatomical structures:\n";
         m_Text[1].text = "You are colliding with these cell types:\n";
+        m_Text[2].text = "Tissue Block Collisions: " + " \nAnatomical Structure Collisions: " + "\nCell Type Predictions via ASCT + B Tables: ";
     }
 }

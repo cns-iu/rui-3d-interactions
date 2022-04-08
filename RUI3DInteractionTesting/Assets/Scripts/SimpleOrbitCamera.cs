@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.UI;
 
 public class SimpleOrbitCamera : MonoBehaviour
@@ -43,10 +42,11 @@ public class SimpleOrbitCamera : MonoBehaviour
             angle -= 360;
         return Mathf.Clamp(angle, min, max);
     }
+
     void LateUpdate()
     {
         if (!m_CanBeUsed) return;
-        
+
         if (Input.GetMouseButton(0))
         {
             Quaternion camTurnAngleX = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);

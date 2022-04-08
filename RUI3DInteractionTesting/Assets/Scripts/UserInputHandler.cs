@@ -18,7 +18,7 @@ public class UserInputHandler : MonoBehaviour
 
     void OnGUI()
     {
-        GetMouseScrollWheel();
+        // GetMouseScrollWheel();
         GetKeyPress();
         GetMouseButtonHold();
     }

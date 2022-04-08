@@ -15,11 +15,6 @@ public class CollisionDetector : MonoBehaviour
     };
     private Color m_StartColor;
 
-    void Start()
-    {
-        
-    }
-
     void OnTriggerEnter(Collider other)
     {
         m_StartColor = other.GetComponent<Renderer>().material.color;
