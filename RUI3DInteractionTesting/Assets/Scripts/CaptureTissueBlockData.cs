@@ -6,8 +6,8 @@ public class CaptureTissueBlockData : MonoBehaviour
 {
     public delegate void Inventory(List<AnatomicalStructures> uniqueAS, List<CellTypes> uniqueCT, int number);
     public static event Inventory UpdateInventoryEvent;
-    private List<AnatomicalStructures> m_UniqueAS = new List<AnatomicalStructures>();
-    private List<CellTypes> m_UniqueCT = new List<CellTypes>();
+    private List<AnatomicalStructures> m_AnatomicalStructures = new List<AnatomicalStructures>();
+    private List<CellTypes> m_CellTypes = new List<CellTypes>();
     [SerializeField] private int m_NumberTissueBlocks;
 
 
@@ -26,8 +26,7 @@ public class CaptureTissueBlockData : MonoBehaviour
         UpdateAS(data.m_ListAS, isCollided);
         UpdateCT(data.m_ListCT, isCollided);
         UpdateNumberTissueBlock(isCollided);
-        Debug.Log(m_NumberTissueBlocks);
-        UpdateInventoryEvent?.Invoke(m_UniqueAS, m_UniqueCT, m_NumberTissueBlocks);
+        UpdateInventoryEvent?.Invoke(m_AnatomicalStructures, m_CellTypes, m_NumberTissueBlocks);
     }
 
     void UpdateNumberTissueBlock(bool isCollided)
@@ -41,7 +40,7 @@ public class CaptureTissueBlockData : MonoBehaviour
         {
             foreach (var item in list)
             {
-                m_UniqueAS.Add(item);
+                m_AnatomicalStructures.Add(item);
             }
 
         }
@@ -49,7 +48,7 @@ public class CaptureTissueBlockData : MonoBehaviour
         {
             foreach (var item in list)
             {
-                m_UniqueAS.Remove(item);
+                m_AnatomicalStructures.Remove(item);
             }
         }
 
@@ -60,7 +59,7 @@ public class CaptureTissueBlockData : MonoBehaviour
         {
             foreach (var item in list)
             {
-                m_UniqueCT.Add(item);
+                m_CellTypes.Add(item);
             }
 
         }
@@ -68,7 +67,7 @@ public class CaptureTissueBlockData : MonoBehaviour
         {
             foreach (var item in list)
             {
-                m_UniqueCT.Remove(item);
+                m_CellTypes.Remove(item);
             }
         }
     }
