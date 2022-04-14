@@ -9,6 +9,8 @@ public class DisplayInventory : MonoBehaviour
     [SerializeField] List<TMP_Text> m_Text = new List<TMP_Text>();
     [SerializeField] HashSet<AnatomicalStructures> uniqueASHash = new HashSet<AnatomicalStructures>();
     [SerializeField] HashSet<CellTypes> uniqueCTHash = new HashSet<CellTypes>();
+    [SerializeField] string m_StandardTextAS = "You are colliding with these anatomical structures:\n";
+    [SerializeField] string m_StandardTextCT = "You are colliding with these cell types:\n";
 
     void OnEnable()
     {
@@ -19,24 +21,14 @@ public class DisplayInventory : MonoBehaviour
     {
         CaptureTissueBlockData.UpdateInventoryEvent -= SetText;
     }
+
     void SetText(List<AnatomicalStructures> anatomicalStructures, List<CellTypes> cellTypes, int number)
     {
-        m_Text[0].text = "You are colliding with these anatomical structures:" + BuildString(GetCounts(anatomicalStructures));
-        m_Text[1].text = "You are colliding with these cell types:" + BuildString(GetCounts(cellTypes));
+        m_Text[0].text = "<b>" + m_StandardTextAS + "</b>" + BuildString(GetCounts(anatomicalStructures));
+        m_Text[1].text = "<b>" + m_StandardTextCT + "</b>" + BuildString(GetCounts(cellTypes));
 
         uniqueASHash = ConvertListToHashSet<AnatomicalStructures>(anatomicalStructures);
         uniqueCTHash = ConvertListToHashSet<CellTypes>(cellTypes);
-
-        // foreach (var item in uniqueASHash)
-        // {
-        //     m_Text[0].text += " - " + item + "\n";
-        // }
-
-        // foreach (var item in uniqueCTHash)
-        // {
-        //     m_Text[1].text += " - " + item + "\n";
-        // }
-        // // m_Text[1].text += "</mark>";
 
         SetCounts(uniqueASHash, uniqueCTHash, number);
 
@@ -57,12 +49,6 @@ public class DisplayInventory : MonoBehaviour
         {
             result[list[i]] = result.ContainsKey(list[i]) ? result[list[i]] + 1 : 1;
         }
-
-        foreach (var item in result)
-        {
-            Debug.Log(item);
-        }
-
         return result;
     }
 
@@ -73,21 +59,15 @@ public class DisplayInventory : MonoBehaviour
         {
             result[list[i]] = result.ContainsKey(list[i]) ? result[list[i]] + 1 : 1;
         }
-
-        foreach (var item in result)
-        {
-            Debug.Log(item);
-        }
-
         return result;
     }
 
     void SetCounts(HashSet<AnatomicalStructures> uniqueASHash, HashSet<CellTypes> uniqueCTHash, int number)
     {
         m_Text[2].text =
-        "Tissue Block Collisions: " + number
-        + " \nUnique Anatomical Structure Collisions: " + uniqueASHash.Count
-        + "\nUnique Cell Type Predictions via ASCT + B Tables: " + uniqueCTHash.Count;
+        "<b>Tissue Block Collisions: </b>" + number
+        + " \n<b>Unique Anatomical Structure Collisions: </b>" + uniqueASHash.Count
+        + "\n<b>Unique Cell Type Predictions via ASCT + B Tables: </b>" + uniqueCTHash.Count;
     }
 
     string BuildString(Dictionary<AnatomicalStructures, int> dict)
@@ -129,8 +109,8 @@ public class DisplayInventory : MonoBehaviour
 
     private void ShowStandardText()
     {
-        m_Text[0].text = "You are colliding with these anatomical structures:\n";
-        m_Text[1].text = "You are colliding with these cell types:\n";
-        m_Text[2].text = "Tissue Block Collisions: " + " \nAnatomical Structure Collisions: " + "\nCell Type Predictions via ASCT + B Tables: ";
+        m_Text[0].text = "<b>" + m_StandardTextAS + "</b>";
+        m_Text[1].text = "<b>" + m_StandardTextCT + "</b>";
+        m_Text[2].text = "<b>" + "Tissue Block Collisions: </b>" + " \n" + "<b>" + "Unique Anatomical Structure Collisions: </b>" + "\n" + "<b>" + "Unique Cell Type Predictions via ASCT + B Tables: </b>";
     }
 }
