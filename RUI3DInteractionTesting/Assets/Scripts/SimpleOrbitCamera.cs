@@ -7,33 +7,38 @@ public class SimpleOrbitCamera : MonoBehaviour
 {
     [SerializeField]
     Transform m_Target;
+    [SerializeField] Vector3 m_DefaultTargetPosition;
+    [SerializeField] Quaternion m_DefaultTargetRotation;
     [SerializeField]
     float rotationSpeed;
     public float m_PanSpeed;
-    Vector3 _cameraOffset;
-    Quaternion camTurnAngleX;
-    Quaternion camTurnAngleY;
-    [SerializeField]
-    float smoothFactor;
+    [SerializeField] Vector3 _cameraOffset;
+    [SerializeField] Vector3 m_DefaultCameraOffset;
+    [SerializeField] Quaternion camTurnAngleX;
+    [SerializeField] Quaternion camTurnAngleY;
+    [SerializeField] float smoothFactor;
     public bool m_DoesPointerAllow = true;
     [SerializeField] bool m_CanBeUsed = true;
+
 
     void OnEnable()
     {
         SliderPointerHandler.SliderEnterEvent += SetCameraUsage;
+        CameraViewManager.CameraResetEvent += ResetCamera;
     }
 
     void OnDestroy()
     {
         SliderPointerHandler.SliderEnterEvent -= SetCameraUsage;
+        CameraViewManager.CameraResetEvent -= ResetCamera;
     }
-
-
 
     void Start()
     {
-        _cameraOffset = this.transform.position - m_Target.transform.position;
+        SetDefaultCameraOffset();
+        SetDefaultTarget();
     }
+
     private static float ClampAngle(float angle, float min, float max)
     {
         if (angle < -360)
@@ -41,6 +46,25 @@ public class SimpleOrbitCamera : MonoBehaviour
         if (angle > 360)
             angle -= 360;
         return Mathf.Clamp(angle, min, max);
+    }
+
+    void SetDefaultTarget()
+    {
+        m_DefaultTargetPosition = m_Target.transform.position;
+        m_DefaultTargetRotation = m_Target.transform.rotation;
+    }
+
+    void SetDefaultCameraOffset()
+    {
+        m_DefaultCameraOffset = this.transform.position - m_Target.transform.position;
+        _cameraOffset = m_DefaultCameraOffset;
+    }
+
+    void ResetCamera()
+    {
+        _cameraOffset = m_DefaultCameraOffset;
+        m_Target.transform.position = m_DefaultTargetPosition;
+        m_Target.transform.rotation = m_DefaultTargetRotation;
     }
 
     void LateUpdate()
@@ -75,9 +99,6 @@ public class SimpleOrbitCamera : MonoBehaviour
         if (Input.mouseScrollDelta != new Vector2(0f, 0f) && !Input.GetKey(KeyCode.LeftShift))
         {
             GetComponent<Camera>().fieldOfView -= Input.mouseScrollDelta.y;
-            // transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
-            // m_Target.transform.rotation = transform.rotation;
-            // m_Target.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
         }
         this.transform.LookAt(m_Target.transform);
 
