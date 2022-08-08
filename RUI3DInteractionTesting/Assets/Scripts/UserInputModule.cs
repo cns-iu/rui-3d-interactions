@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public enum NewRendering { Perspective, Orthographic }
 public enum NewPosition { Right, Left, Posterior, Anterior }
 
-public enum NewActiveCamera { Register, Orbit }
+public enum NewActiveCamera { Register, Orbit, Second }
 public class UserInputModule : MonoBehaviour
 {
     public delegate void Perspective(NewRendering newRendering);
@@ -74,10 +74,14 @@ public class UserInputModule : MonoBehaviour
             button.onValueChanged.AddListener(
                 delegate
                 {
-                    NewActiveCamera newCamera;
+                    NewActiveCamera newCamera = NewActiveCamera.Orbit;
                     if (button.gameObject.name.Equals("Register"))
                     {
-                        newCamera = NewActiveCamera.Register;
+                        if (button.isOn) {
+                            Debug.Log(button.gameObject.name.Equals("Register"));
+                            newCamera = NewActiveCamera.Register;
+                        } 
+                        
                     }
                     else
                     {
