@@ -79,7 +79,6 @@ public class UserInputModule : MonoBehaviour
                     {
                         if (button.isOn)
                         {
-                            Debug.Log(button.gameObject.name.Equals("Register"));
                             newCamera = NewActiveCamera.Register;
                         }
 
