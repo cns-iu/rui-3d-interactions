@@ -10,7 +10,7 @@ public class CamControl : MonoBehaviour
     [SerializeField]
     CameraSwitchListener m_CameraSwitchListener;
     [SerializeField]
-    private bool m_IsMovementAllowed = false;
+    public bool m_IsMovementAllowed = false;
     [SerializeField]
     Transform m_Target;
     [SerializeField]
@@ -22,6 +22,8 @@ public class CamControl : MonoBehaviour
     [SerializeField]
     float smoothFactor;
     public bool m_DoesPointerAllow = true;
+    Vector3 defaultPosition;
+    Vector3 lastPosition;
 
 
     // public Slider[] m_Sliders = new Slider[3];
@@ -94,6 +96,7 @@ public class CamControl : MonoBehaviour
                 m_Target.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * m_PanSpeed, Space.Self);
             }
             this.transform.LookAt(m_Target.transform);
+            lastPosition = transform.position;
         }
     }
 
@@ -101,11 +104,24 @@ public class CamControl : MonoBehaviour
     {
         m_IsMovementAllowed = ((newActiveCamera == m_CameraSwitchListener.m_Role));
         // Debug.Log(m_IsMovementAllowed);
+       
+            if (newActiveCamera == NewActiveCamera.Register)
+            {
+            transform.LookAt(m_Target.transform);
+            transform.position = lastPosition;
+        }
+     
     }
 
     public void SetSliderUsageStatus(bool isAllowed)
     {
         // Debug.Log(isAllowed);
         m_IsMovementAllowed = isAllowed;
+    }
+
+    private void Awake()
+    {
+        transform.LookAt(m_Target.transform);
+        defaultPosition = transform.position;
     }
 }
