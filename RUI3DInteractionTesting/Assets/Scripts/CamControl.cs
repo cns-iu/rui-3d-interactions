@@ -10,7 +10,7 @@ public class CamControl : MonoBehaviour
     [SerializeField]
     CameraSwitchListener m_CameraSwitchListener;
     [SerializeField]
-    private bool m_IsMovementAllowed = false;
+    public bool m_IsMovementAllowed = false;
     [SerializeField]
     Transform m_Target;
     [SerializeField]

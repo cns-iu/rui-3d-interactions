@@ -77,11 +77,12 @@ public class UserInputModule : MonoBehaviour
                     NewActiveCamera newCamera = NewActiveCamera.Orbit;
                     if (button.gameObject.name.Equals("Register"))
                     {
-                        if (button.isOn) {
+                        if (button.isOn)
+                        {
                             Debug.Log(button.gameObject.name.Equals("Register"));
                             newCamera = NewActiveCamera.Register;
-                        } 
-                        
+                        }
+
                     }
                     else
                     {
@@ -100,7 +101,7 @@ public class UserInputModule : MonoBehaviour
         );
     }
 
-   
+
     void OnGUI()
     {
         TakeUserInput();
