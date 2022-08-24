@@ -53,7 +53,7 @@ namespace SpaceNavigatorDriver {
 					_device.Connect();
 			}
 			catch (COMException ex) {
-				Debug.LogError(ex.ToString());
+				//Debug.LogError(ex.ToString());
 			}
 		}
 
