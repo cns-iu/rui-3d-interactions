@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/axes-refreshments.unity
-    guid: 8f93425c3c1b32349adb7fa304daaa32
+    path: Assets/Scenes/RUI 3 Axis User Test.unity
+    guid: d552eded8ed5a964c9f301a00742b380
   m_configObjects: {}

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class KeepRotation : MonoBehaviour
 {
-    [SerializeField] private Transform Twin;
-   
+    [SerializeField] private Vector3 _targetRotation = new Vector3(0, 0, 0);
+
     void Update()
     {
-        transform.rotation = Twin.rotation;
+        transform.eulerAngles = _targetRotation;
     }
 }

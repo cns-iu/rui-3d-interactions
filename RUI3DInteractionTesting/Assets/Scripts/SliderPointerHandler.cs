@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +6,21 @@ using UnityEngine.EventSystems;
 
 public class SliderPointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
-    public delegate void SliderEnter(bool turnCameraOff);
-    public static event SliderEnter SliderEnterEvent;
 
-    private bool m_IsCameraUsed = false;
+    public static event Action<bool> SliderEnterEvent;
+
+    [SerializeField] private bool m_IsCameraUsed = false;
 
     void OnEnable()
     {
-        UserInputHandler.MouseHeldEvent += SetCameraUse;
+        //UserInputHandler.MouseHeldEvent += SetCameraUse;
+        SimpleOrbitCamera.OnCameraMove += SetCameraUse;
     }
 
     void OnDestroy()
     {
-        UserInputHandler.MouseHeldEvent -= SetCameraUse;
+        //UserInputHandler.MouseHeldEvent -= SetCameraUse;
+        SimpleOrbitCamera.OnCameraMove -= SetCameraUse;
     }
 
     public void OnPointerEnter(PointerEventData data)
