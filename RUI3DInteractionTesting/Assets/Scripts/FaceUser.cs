@@ -19,7 +19,7 @@ public class FaceUser : MonoBehaviour
 
     private void Awake()
     {
-        m_Camera = cameras[0];
+        m_Camera = Camera.main.gameObject;
     }
 
     private void OnEnable()
