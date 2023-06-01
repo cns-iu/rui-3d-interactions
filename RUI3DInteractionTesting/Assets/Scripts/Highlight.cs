@@ -4,36 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Highlight : MonoBehaviour
 {
-    public GameObject m_Panel;
+    public GameObject _panel;
     public float m_Duration = .05f;
 
     [SerializeField] private bool m_IsHoldingKey = false;
 
     void OnEnable()
     {
-        MovementManager.MovementEvent += SetPanelActive;
+        //MovementManager.MovementEvent += SetPanelActive;
 
-        UserInputHandler.KeyPressedEvent += SetPanelActive;
+        //UserInputHandler.KeyPressedEvent += SetPanelActive;
 
-        UserInputHandler.KeyHeldEvent += SetPanelActive;
+        //UserInputHandler.KeyHeldEvent += SetPanelActive;
+
+        KeyHandler.keyPressed += SetPanelActive;
     }
 
     void OnDisable()
     {
-        MovementManager.MovementEvent -= SetPanelActive;
-        UserInputHandler.KeyPressedEvent -= SetPanelActive;
-        UserInputHandler.KeyHeldEvent -= SetPanelActive;
+        //MovementManager.MovementEvent -= SetPanelActive;
+        //UserInputHandler.KeyPressedEvent -= SetPanelActive;
+        //UserInputHandler.KeyHeldEvent -= SetPanelActive;
+
+        KeyHandler.keyPressed -= SetPanelActive;
     }
 
     private void Awake()
     {
-        m_Panel = transform.GetChild(0).gameObject;
+        _panel = transform.GetChild(0).gameObject;
     }
 
     // Start is called before the first frame update
-    void SetPanelActive(string key)
+    void SetPanelActive(KeyCode key)
     {
-        if (this.gameObject.name.Equals(key))
+        if (this.gameObject.name.Equals(key.ToString()))
         {
             if (!m_IsHoldingKey)
             {
@@ -58,14 +62,14 @@ public class Highlight : MonoBehaviour
 
     IEnumerator HighlightUntilRelease(bool isHeld)
     {
-        m_Panel.SetActive(isHeld);
+        _panel.SetActive(isHeld);
         yield return null;
     }
 
     IEnumerator HighlightForDuration()
     {
-        m_Panel.SetActive(true);
+        _panel.SetActive(true);
         yield return new WaitForSeconds(m_Duration);
-        m_Panel.SetActive(false);
+        _panel.SetActive(false);
     }
 }

@@ -6,28 +6,34 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedSceneGuid-0:
-      value: 5506525652565b025b58587a43775c4444164029757d2569757e1e65b0b9613d
-      flags: 0
-    RecentlyUsedSceneGuid-1:
-      value: 06045252010c50035c0c09201576594413164e7a7a7c76352f784b62e7e43239
-      flags: 0
-    RecentlyUsedSceneGuid-2:
-      value: 5701520301570a085b080d21487b0b4417161e7c7a7d2368292d1e66b4e6313c
-      flags: 0
-    RecentlyUsedSceneGuid-3:
       value: 0757500557570c035f0a5b7611775c1417161a292d7076337d7a4b63b0b3616d
       flags: 0
+    RecentlyUsedSceneGuid-1:
+      value: 5b570d5551075c585e0d5d2043710c444f161c287b2e27637d7d1932e3e1676a
+      flags: 0
+    RecentlyUsedSceneGuid-2:
+      value: 5357550752570b090e575b7a45265a44414e1e7d2f78766275704c36b1e2306c
+      flags: 0
+    RecentlyUsedSceneGuid-3:
+      value: 5a09505756510d02595d5d7a47750c4412151d2b2e2b246729794c61b0b3376c
+      flags: 0
     RecentlyUsedSceneGuid-4:
-      value: 5a5757560101590a5d0c0e24427b5d44434e4c7a7b7a23677f2b4565b7b5353a
+      value: 5b08565706500b0c5d0d552347710744414e4c727b2b22642b7b4c67e3b0316a
       flags: 0
     RecentlyUsedSceneGuid-5:
-      value: 530307565357510d5a5a0f7314740c444f16497c797c2265757f1e36b2b43668
+      value: 530104565505590b5d5e5c7240730f404647487a7c7876607d794d63b2b06468
       flags: 0
     RecentlyUsedSceneGuid-6:
-      value: 5b570d5551075c585e0d5d2043710c444f161c287b2e27637d7d1932e3e1676a
+      value: 530307565357510d5a5a0f7314740c444f16497c797c2265757f1e36b2b43668
       flags: 0
     RecentlyUsedSceneGuid-7:
       value: 5202525550075e0b585c092149220e44464e1a722e2b723229714d37e4b5616d
+      flags: 0
+    RecentlyUsedSceneGuid-8:
+      value: 5a5757560101590a5d0c0e24427b5d44434e4c7a7b7a23677f2b4565b7b5353a
+      flags: 0
+    RecentlyUsedSceneGuid-9:
+      value: 0704015400510c5f550b0877117a0944154e1e797c7927607d7e4961e0b36c68
       flags: 0
     RecentlyUsedScenePath-0:
       value: 22424703114646680e0b0227036c6c111b07142f1f2b233e2867083debf42d

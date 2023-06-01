@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SimpleOrbitCamera : MonoBehaviour
 {
+    public static event Action<bool> OnCameraMove;
+
     [SerializeField]
     Transform m_Target;
     [SerializeField] Vector3 m_DefaultTargetPosition;
@@ -18,11 +22,13 @@ public class SimpleOrbitCamera : MonoBehaviour
     [SerializeField] Quaternion camTurnAngleY;
     [SerializeField] float smoothFactor;
     public bool m_DoesPointerAllow = true;
-    [SerializeField] bool m_CanBeUsed = true;
+    [SerializeField] private bool _canBeUsed = true;
+   
 
 
     void OnEnable()
     {
+       
         SliderPointerHandler.SliderEnterEvent += SetCameraUsage;
         CameraViewManager.CameraResetEvent += ResetCamera;
     }
@@ -69,7 +75,7 @@ public class SimpleOrbitCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!m_CanBeUsed) return;
+        if (!_canBeUsed) return;
 
         if (Input.GetMouseButton(0))
         {
@@ -84,7 +90,13 @@ public class SimpleOrbitCamera : MonoBehaviour
             _cameraOffset = camTurnAngleX * camTurnAngleY * _cameraOffset;
             Vector3 newPos = m_Target.position + _cameraOffset;
             this.transform.position = Vector3.Slerp(this.transform.position, newPos, smoothFactor);
+
+            OnCameraMove(true);
         }
+        else {
+            OnCameraMove(false);
+        }
+
         if (Input.GetMouseButton(1))
         {
             float camPosDeltaX = Input.GetAxis("Mouse X");
@@ -106,6 +118,6 @@ public class SimpleOrbitCamera : MonoBehaviour
 
     void SetCameraUsage(bool turnCameraOff)
     {
-        m_CanBeUsed = !turnCameraOff;
+        _canBeUsed = !turnCameraOff;
     }
 }
