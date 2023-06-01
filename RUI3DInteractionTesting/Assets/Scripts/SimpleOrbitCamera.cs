@@ -10,27 +10,28 @@ public class SimpleOrbitCamera : MonoBehaviour
     public static event Action<bool> OnCameraMove;
 
     [SerializeField]
-    Transform m_Target;
-    [SerializeField] Vector3 m_DefaultTargetPosition;
-    [SerializeField] Quaternion m_DefaultTargetRotation;
+    Transform _target;
+    [SerializeField] Vector3 _defaultTargetPosition;
+    [SerializeField] Quaternion _defaultTargetRotation;
     [SerializeField]
     float rotationSpeed;
     public float m_PanSpeed;
     [SerializeField] Vector3 _cameraOffset;
-    [SerializeField] Vector3 m_DefaultCameraOffset;
+    [SerializeField] Vector3 _defaultCameraOffset;
+    [SerializeField] float _defaultFOV;
     [SerializeField] Quaternion camTurnAngleX;
     [SerializeField] Quaternion camTurnAngleY;
     [SerializeField] float smoothFactor;
     public bool m_DoesPointerAllow = true;
     [SerializeField] private bool _canBeUsed = true;
-   
+
 
 
     void OnEnable()
     {
-       
         SliderPointerHandler.SliderEnterEvent += SetCameraUsage;
         CameraViewManager.CameraResetEvent += ResetCamera;
+
     }
 
     void OnDestroy()
@@ -39,8 +40,9 @@ public class SimpleOrbitCamera : MonoBehaviour
         CameraViewManager.CameraResetEvent -= ResetCamera;
     }
 
-    void Start()
+    void Awake()
     {
+        _defaultFOV = GetComponent<Camera>().fieldOfView;
         SetDefaultCameraOffset();
         SetDefaultTarget();
     }
@@ -56,21 +58,22 @@ public class SimpleOrbitCamera : MonoBehaviour
 
     void SetDefaultTarget()
     {
-        m_DefaultTargetPosition = m_Target.transform.position;
-        m_DefaultTargetRotation = m_Target.transform.rotation;
+        _defaultTargetPosition = _target.transform.position;
+        _defaultTargetRotation = _target.transform.rotation;
     }
 
     void SetDefaultCameraOffset()
     {
-        m_DefaultCameraOffset = this.transform.position - m_Target.transform.position;
-        _cameraOffset = m_DefaultCameraOffset;
+        _defaultCameraOffset = this.transform.position - _target.transform.position;
+        _cameraOffset = _defaultCameraOffset;
     }
 
     void ResetCamera()
     {
-        _cameraOffset = m_DefaultCameraOffset;
-        m_Target.transform.position = m_DefaultTargetPosition;
-        m_Target.transform.rotation = m_DefaultTargetRotation;
+        _target.transform.position = _defaultTargetPosition;
+        _target.transform.rotation = _defaultTargetRotation;
+        _cameraOffset = _defaultCameraOffset;
+        GetComponent<Camera>().fieldOfView = _defaultFOV;
     }
 
     void LateUpdate()
@@ -88,12 +91,13 @@ public class SimpleOrbitCamera : MonoBehaviour
             }
 
             _cameraOffset = camTurnAngleX * camTurnAngleY * _cameraOffset;
-            Vector3 newPos = m_Target.position + _cameraOffset;
+            Vector3 newPos = _target.position + _cameraOffset;
             this.transform.position = Vector3.Slerp(this.transform.position, newPos, smoothFactor);
 
             OnCameraMove(true);
         }
-        else {
+        else
+        {
             OnCameraMove(false);
         }
 
@@ -104,15 +108,15 @@ public class SimpleOrbitCamera : MonoBehaviour
 
             transform.Translate(Vector3.right * -camPosDeltaX * m_PanSpeed, Space.Self);
             transform.Translate(Vector3.up * -camPosDeltaY * m_PanSpeed, Space.Self);
-            m_Target.transform.rotation = transform.rotation;
-            m_Target.transform.Translate(Vector3.right * -camPosDeltaX * m_PanSpeed, Space.Self);
-            m_Target.transform.Translate(Vector3.up * -camPosDeltaY * m_PanSpeed, Space.Self);
+            _target.transform.rotation = transform.rotation;
+            _target.transform.Translate(Vector3.right * -camPosDeltaX * m_PanSpeed, Space.Self);
+            _target.transform.Translate(Vector3.up * -camPosDeltaY * m_PanSpeed, Space.Self);
         }
         if (Input.mouseScrollDelta != new Vector2(0f, 0f) && !Input.GetKey(KeyCode.LeftShift))
         {
             GetComponent<Camera>().fieldOfView -= Input.mouseScrollDelta.y;
         }
-        this.transform.LookAt(m_Target.transform);
+        this.transform.LookAt(_target.transform);
 
     }
 
