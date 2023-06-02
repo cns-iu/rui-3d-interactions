@@ -9,6 +9,7 @@ public class MoveManager : MonoBehaviour
     [SerializeField] private float _movementUnit = 0.005f;
     [SerializeField] private Transform _tissueBlock;
     [SerializeField] private Slider[] _sliders = new Slider[3];
+    [SerializeField] private Button _resetButton;
 
     private void OnEnable()
     {
@@ -25,6 +26,16 @@ public class MoveManager : MonoBehaviour
                 }
                 );
         }
+
+        _resetButton.onClick.AddListener(
+            () =>
+            {
+                foreach (var slider in _sliders)
+                {
+                    slider.value = 0f;
+                }
+            }
+            );
 
     }
 
