@@ -1,2 +1,2 @@
-# EUI Probing Cube (Prototype)
-Welcome! Please follow the instructions on the screen. You can submit issues here: [https://github.com/andreasbueckle/rui-3d-interactions/issues](https://github.com/andreasbueckle/rui-3d-interactions/issues)
+# RUI Prototyping Project
+Welcome! This repository contains code to test new HRA UI functionality in Unity. 
