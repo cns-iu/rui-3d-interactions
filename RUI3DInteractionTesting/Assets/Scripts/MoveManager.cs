@@ -10,9 +10,11 @@ public class MoveManager : MonoBehaviour
     [SerializeField] private Transform _tissueBlock;
     [SerializeField] private Slider[] _sliders = new Slider[3];
     [SerializeField] private Button _resetButton;
+    [SerializeField] private Button _positionReset;
 
     private void OnEnable()
     {
+        Vector3 defaultPosition = _tissueBlock.position;
         KeyHandler.keyPressed += OnMove;
 
         foreach (var slider in _sliders)
@@ -34,6 +36,12 @@ public class MoveManager : MonoBehaviour
                 {
                     slider.value = 0f;
                 }
+            }
+            );
+
+        _positionReset.onClick.AddListener(
+            () => {
+                _tissueBlock.position = defaultPosition;
             }
             );
 
