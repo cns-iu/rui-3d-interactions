@@ -54,6 +54,8 @@ public class MoveManager : MonoBehaviour
 
     private void OnMove(KeyCode k)
     {
+        _movementUnit = AdjustMovementUnit.Instance.CurrentMovementUnit;
+
         switch (k)
         {
             case KeyCode.W:
