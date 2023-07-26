@@ -29,14 +29,14 @@ public class SimpleOrbitCamera : MonoBehaviour
 
     void OnEnable()
     {
-        SliderPointerHandler.SliderEnterEvent += SetCameraUsage;
+        SliderPointerHandler.OnPointerChange += SetCameraUsage;
         CameraViewManager.CameraResetEvent += ResetCamera;
 
     }
 
     void OnDestroy()
     {
-        SliderPointerHandler.SliderEnterEvent -= SetCameraUsage;
+        SliderPointerHandler.OnPointerChange -= SetCameraUsage;
         CameraViewManager.CameraResetEvent -= ResetCamera;
     }
 

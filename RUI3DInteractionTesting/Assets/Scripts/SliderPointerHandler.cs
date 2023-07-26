@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class SliderPointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
 
-    public static event Action<bool> SliderEnterEvent;
+    public static event Action<bool> OnPointerChange;
 
     [SerializeField] private bool m_IsCameraUsed = false;
 
@@ -25,20 +25,20 @@ public class SliderPointerHandler : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData data)
     {
-        if (m_IsCameraUsed) return;
-        SliderEnterEvent?.Invoke(true);
+        //if (m_IsCameraUsed) return;
+        OnPointerChange?.Invoke(true);
     }
 
     public void OnPointerExit(PointerEventData data)
     {
-        if (m_IsCameraUsed) return;
-        if (!Input.GetMouseButton(0)) SliderEnterEvent?.Invoke(false);
+        //if (m_IsCameraUsed) return;
+        OnPointerChange?.Invoke(false);
     }
 
     public void OnPointerUp(PointerEventData data)
     {
         if (m_IsCameraUsed) return;
-        SliderEnterEvent?.Invoke(false);
+        OnPointerChange?.Invoke(false);
     }
 
     void SetCameraUse(bool isMouseUsed)
