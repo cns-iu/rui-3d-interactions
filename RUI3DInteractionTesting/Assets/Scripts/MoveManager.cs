@@ -10,9 +10,11 @@ public class MoveManager : MonoBehaviour
     [SerializeField] private Transform _tissueBlock;
     [SerializeField] private Slider[] _sliders = new Slider[3];
     [SerializeField] private Button _resetButton;
+    [SerializeField] private Button _positionReset;
 
     private void OnEnable()
     {
+        Vector3 defaultPosition = _tissueBlock.position;
         KeyHandler.keyPressed += OnMove;
 
         foreach (var slider in _sliders)
@@ -37,6 +39,12 @@ public class MoveManager : MonoBehaviour
             }
             );
 
+        _positionReset.onClick.AddListener(
+            () => {
+                _tissueBlock.position = defaultPosition;
+            }
+            );
+
     }
 
     private void OnDestroy()
@@ -46,6 +54,8 @@ public class MoveManager : MonoBehaviour
 
     private void OnMove(KeyCode k)
     {
+        _movementUnit = AdjustMovementUnit.Instance.CurrentMovementUnit;
+
         switch (k)
         {
             case KeyCode.W:

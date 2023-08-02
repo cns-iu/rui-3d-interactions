@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,6 +14,8 @@ public class InputManager : MonoBehaviour
     public Space CurrentSpace { get; private set; }
 
     [SerializeField] private TMP_Dropdown _dropdown;
+    [SerializeField] private List<Button> _resetButtons;
+    [SerializeField] private Button _resetAllButton;
 
     private void Update()
     {
@@ -22,6 +25,15 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         _dropdown.onValueChanged.AddListener(SetSpace);
+        _resetAllButton.onClick.AddListener(
+            () =>
+            {
+                for (int i = 0; i < _resetButtons.Count; i++)
+                {
+                    _resetButtons[i].onClick.Invoke();
+                }
+            }
+            );
     }
 
     private void HandleKeyEvents()
